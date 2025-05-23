@@ -3,8 +3,9 @@
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore -a $TARGETARCH
-RUN dotnet publish -c Release -o /app/publish -a $TARGETARCH
+ARG TARGETOS TARGETARCH
+RUN dotnet restore --runtime $TARGETOS-$TARGETARCH
+RUN dotnet publish -c Release -o /app/publish --runtime $TARGETOS-$TARGETARCH --self-contained false
 
 FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
