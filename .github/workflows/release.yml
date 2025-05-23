@@ -45,7 +45,7 @@ jobs:
         env:
           RELEASE_VERSION: ${{ steps.get-version.outputs.tag }}
         with:
-          platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           context: .
           push: true
           tags: siriuszg/hangfire-http-server:${{ env.RELEASE_VERSION }},siriuszg/hangfire-http-server:latest
